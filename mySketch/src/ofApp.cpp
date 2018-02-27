@@ -13,12 +13,15 @@ void ofApp::update(){
 //--------------------------------------------------------------
 
 void ofApp::drawRect( float x, float y, float width, float height  ){
-    ofDrawLine(x, y, x+width, y);
-    ofDrawLine(x, y, x, y+height);
-    ofDrawLine(x+width, y, x+width, y+height);
-    ofDrawLine(x, y+height, x+width, y+height);
+//    ofDrawLine(x, y, x+width, y);
+//    ofDrawLine(x, y, x, y+height);
+//    ofDrawLine(x+width, y, x+width, y+height);
+//    ofDrawLine(x, y+height, x+width, y+height);
     
-    //ofDrawLine(x-width/2, y-width/2, x+width/2, y-width/2);
+    ofDrawLine(x-width/2, y-width/2, x+width/2, y-width/2);
+    ofDrawLine(x-width/2, y-width/2, x-width/2, y+height/2);
+    ofDrawLine(x+width/2, y-width/2, x+width/2, y+height/2);
+    ofDrawLine(x-width/2, y+height/2, x+width/2, y+height/2);
 }
 
 void ofApp::draw(){
