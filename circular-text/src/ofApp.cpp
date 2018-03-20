@@ -2,7 +2,7 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    ofSetWindowShape(500, 500);
+    font.load("open-sans.otf", 40);
 }
 
 //--------------------------------------------------------------
@@ -11,47 +11,41 @@ void ofApp::update(){
 }
 
 //--------------------------------------------------------------
-
-void ofApp::drawRect( float x, float y, float width, float height  ){
-    float sinOfTime2 = sin( ofGetElapsedTimef() + PI);
-    float sinOfTimeMapped2 = ofMap(sinOfTime2, -1, 1, y-height/2, y+height/2);
-    float sinOfTimeMapped3 = ofMap(sinOfTime2, -1, 1, x-width/2, x+width/2 );
-
-    ofDrawLine(x-width/2, y-height/2, sinOfTimeMapped3, y-height/2);
-    ofDrawLine(sinOfTimeMapped3, y+height/2, x+width/2, y+height/2);
-    //    ofDrawLine(sinOfTimeMapped3, y-height/2, x+width/2, y-height/2);
-    //    ofDrawLine(x-width/2, y+height/2, sinOfTimeMapped3, y+height/2);
-    
-    ofDrawLine(x-width/2, sinOfTimeMapped2, x-width/2, y+height/2);
-    ofDrawLine(x+width/2, y-height/2, x+width/2, sinOfTimeMapped2);
-}
-
 void ofApp::draw(){
-    ofBackground(255);
-    ofFill();
-    ofSetColor(255, 255, 255); //fill color
+    ofBackground(0);
     ofNoFill();
-    ofSetColor(0, 0, 0); //stroke color
+    ofSetColor(255);
+    ofDrawCircle(0, 0, 400);
+
+    ofFill();
+    ofSetColor(255);
     
-    int step = 100;
-    for (int row = 0; row < 5; row++){
-        for (int col = 0; col < 5; col++) {
-            int rowVal = row*step + step/2;
-            int colVal = col*step + step/2;
-            drawRect(rowVal, colVal, step, step);
-            for (int count = 0; count < 10; count++) {
-                step = 100 - count * 10;
-                drawRect(rowVal, colVal, step, step);
-            }
-            step = 100;
-            rowVal = row*step;
-            colVal = col*step;
-        }
+    string str = "Messages and Means, Muriel Cooper at MIT";
+    
+    for (int i = 0; i < str.length(); i++) {
+        
+        string letter = ofToString(str[i]);
+        ofRectangle bb = font.getStringBoundingBox(letter, 0, 0);
+        
+        ofPushMatrix();
+        
+        angle = ofMap(i, 0, str.length(), 0, 360);
+        // rotate around (0, 0)
+        ofRotate(angle + increment);
+        
+        // Move up
+        ofTranslate(0, 400);
+        
+       // center at (0, 0)
+        ofTranslate(-bb.getWidth() / 2, bb.getHeight() / 2);
+        
+        font.drawString(letter, 0, 0);
+        
+        ofPopMatrix();
+        
     }
+    
 }
-
-
-
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
@@ -70,7 +64,8 @@ void ofApp::mouseMoved(int x, int y ){
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
-
+    cout << "test   " << x << " , " << y << endl;
+    increment = ofMap(x, 0, ofGetWidth(), 0, 360);
 }
 
 //--------------------------------------------------------------
