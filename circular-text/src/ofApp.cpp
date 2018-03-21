@@ -20,39 +20,30 @@ void ofApp::draw(){
     
     string str = "Messages and Means, Muriel Cooper at MIT";
     ofRectangle rect = font.getStringBoundingBox(str, 0, 0);
-    int stringWidth = rect.getWidth();
+    float stringWidth = rect.getWidth();
     int stringNumCharacters = str.length();
-    int radius = 100;
+    float radius = 100;
     
     ofTranslate(ofGetWidth()/2, ofGetHeight()/2);
     
-    for (int n = 1; n < 8; n++) {
- 
-        int numberToDraw = (radius / stringWidth) * stringNumCharacters;
-        cout << "test   " << numberToDraw << " , " << radius <<  " , "  << stringWidth << " , " << stringNumCharacters << endl;
+    for (int n = 0; n < 10; n++) {
+        float numberToDraw = (radius / stringWidth) * stringNumCharacters;
 
         for (int i = 0; i < numberToDraw; i++) {
-            
             string letter = ofToString(str[i % str.size()]);
             ofRectangle bb = font.getStringBoundingBox(letter, 0, 0);
-
             ofPushMatrix();
-            
-            angle = ofMap(i, 0, stringNumCharacters, 0, 360);
+            angle = ofMap(i, 0, numberToDraw, 0, 360);
             // rotate around (0, 0)
             ofRotate(angle + increment);
-            
             // Move up
-            ofTranslate(0, radius + 50 * n);
-            
+            ofTranslate(0, radius);
             // center at (0, 0)
             ofTranslate(-bb.getWidth() / 2, bb.getHeight() / 2);
-            
             font.drawString(letter, 0, 0);
-            
             ofPopMatrix();
-            
         }
+        radius = radius + (20 * n);
     }
 }
 
