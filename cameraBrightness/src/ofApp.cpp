@@ -10,7 +10,8 @@ void ofApp::setup(){
 void ofApp::update(){
 
     grabber.update();
-    
+    brightness.resize(1000);
+
 }
 
 
@@ -26,17 +27,17 @@ void ofApp::draw(){
         for (int j = 0; j < grabber.getHeight(); j+=10){
             ofColor pixel = grabber.getPixels().getColor(i,j);
             brightness[i][j] = pixel.getBrightness();
-            saturation[i][j]  = pixel.getSaturation();
-            lightness[i][j]  = pixel.getLightness();
+            //saturation[i][j]  = pixel.getSaturation();
+            //lightness[i][j]  = pixel.getLightness();
             //inversion[i][j] = pixel.getInverted();
         }
     }
-    ofSort(brightness, compare);
+   // ofSort(brightness, compare);
 }
 
 //--------------------------------------------------------------
 
-bool ofApp::compare(vector<float> a, vector<float> b){
+bool compare(vector<float> a, vector<float> b){
     return a[0] < b[0];
 }
 

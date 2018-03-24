@@ -20,9 +20,7 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
-    
-    bool compare(vector<float> a, vector<float> b);
-    
+        
     ofVideoGrabber grabber;
     vector<vector<float>> brightness;
     vector<vector<float>> lightness;
