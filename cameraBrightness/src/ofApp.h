@@ -2,12 +2,6 @@
 
 #include "ofMain.h"
 
-class Line {
-public:
-    ofPoint a;
-    ofPoint b;
-};
-
 class ofApp : public ofBaseApp{
 
 	public:
@@ -26,6 +20,13 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
-    ofEasyCam cam;
-
+    
+    bool compare(vector<float> a, vector<float> b);
+    
+    ofVideoGrabber grabber;
+    vector<vector<float>> brightness;
+    vector<vector<float>> lightness;
+    vector <ofColor> inversion;
+    vector<vector<float>> saturation;
+    
 };

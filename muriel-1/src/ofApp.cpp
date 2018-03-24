@@ -43,18 +43,26 @@ void ofApp::draw(){
     }
     
     ofSetColor(255, 255, 255); //stroke color
-    
+
+    float sinOfTime = sin (ofGetElapsedTimef() * PI);
+    float sinOfTime2 = sin (ofGetElapsedTimef() / 4 * PI);
+    float sinOfTime3 = sin (2 * ofGetElapsedTimef() * PI);
+    float mouseMap = ofMap(mouseX, 0, ofGetWidth(), 0, 360);
+    float sinTimeMap = ofMap(sinOfTime2, -1, 1, smallCircle, hugeCircle);
+    float sinTimeMap2 = ofMap(sinOfTime, -1, 1, 0, smallCircle);
+    float sinTimeMap3 = ofMap(sinOfTime3, -1, 1, smallCircle, mediumCircle);
+
     // row 0
-    ofDrawCircle(200, start, smallCircle);
+    ofDrawCircle(200, start, sinTimeMap2);
     ofDrawCircle(400, start, smallCircle);
     ofDrawCircle(300, start, mediumCircle);
-    ofDrawCircle(300, start, mediumCircle);
+    ofDrawCircle(300, start, sinTimeMap3);
     ofDrawCircle(350, start, mediumCircle);
-    ofDrawCircle(250, start, mediumCircle);
+    ofDrawCircle(250, start, sinTimeMap3);
 
     // row 1
     ofDrawCircle(450, 100, smallCircle);
-    ofDrawCircle(250, 100, hugeCircle);
+    ofDrawCircle(250, 100, sinTimeMap);
     ofDrawCircle(300, 100, hugeCircle);
     ofDrawCircle(350, 100, hugeCircle);
     ofDrawCircle(400, 100, hugeCircle);
@@ -76,7 +84,7 @@ void ofApp::draw(){
 
     
     // row 3
-    ofDrawCircle(start, 200, smallCircle);
+    ofDrawCircle(start, 200, sinTimeMap2);
     ofDrawCircle(350, 200, smallCircle);
     ofDrawCircle(end, 200, smallCircle);
     ofDrawCircle(250, 200, mediumCircle);
@@ -86,13 +94,12 @@ void ofApp::draw(){
     ofDrawCircle(150, 200, hugeCircle);
     ofDrawCircle(450, 200, hugeCircle);
 
-
     // row 4
     ofDrawCircle(start, 250, smallCircle);
     ofDrawCircle(250, 250, smallCircle);
-    ofDrawCircle(400, 250, smallCircle);
+    ofDrawCircle(400, 250, sinTimeMap2);
     ofDrawCircle(450, 250, smallCircle);
-    ofDrawCircle(500, 250, smallCircle);
+    ofDrawCircle(500, 250, sinTimeMap2);
     ofDrawCircle(end, 250, smallCircle);
     ofDrawCircle(100, 250, largeCircle);
     ofDrawCircle(200, 250, largeCircle);
@@ -121,7 +128,7 @@ void ofApp::draw(){
     ofDrawCircle(350, 400, smallCircle);
     ofDrawCircle(start, 400, smallCircle);
     ofDrawCircle(end, 400, smallCircle);
-    ofDrawCircle(250, 400, mediumCircle);
+    ofDrawCircle(250, 400, sinTimeMap3);
     ofDrawCircle(100, 400, largeCircle);
     ofDrawCircle(200, 400, largeCircle);
     ofDrawCircle(400, 400, largeCircle);
@@ -132,9 +139,9 @@ void ofApp::draw(){
     // row 8
     ofDrawCircle(100, 450, mediumCircle);
     ofDrawCircle(150, 450, mediumCircle);
-    ofDrawCircle(500, 450, mediumCircle);
+    ofDrawCircle(500, 450,  sinTimeMap3);
     ofDrawCircle(250, 450, largeCircle);
-    ofDrawCircle(350, 450, largeCircle);
+    ofDrawCircle(350, 450, sinTimeMap2);
     ofDrawCircle(150, 450, hugeCircle);
     ofDrawCircle(200, 450, hugeCircle);
     ofDrawCircle(400, 450, hugeCircle);
