@@ -10,11 +10,13 @@ void ofApp::setup(){
 void ofApp::update(){
 
     grabber.update();
-    brightness.resize(1000);
-
 }
 
+//--------------------------------------------------------------
 
+bool compare(vector<float> a, vector<float> b) {
+    return a[0] < b[0];
+}
 
 void ofApp::draw(){
 
@@ -23,23 +25,28 @@ void ofApp::draw(){
     grabber.draw(0,0);
     ofTranslate(640,0);
     
+    brightness.clear();
     for (int i = 0; i < grabber.getWidth(); i+=10){
+        vector<float> rowBrightness;
         for (int j = 0; j < grabber.getHeight(); j+=10){
             ofColor pixel = grabber.getPixels().getColor(i,j);
-            brightness[i][j] = pixel.getBrightness();
-            //saturation[i][j]  = pixel.getSaturation();
-            //lightness[i][j]  = pixel.getLightness();
-            //inversion[i][j] = pixel.getInverted();
+            rowBrightness.push_back(pixel.getBrightness());
+        }
+        brightness.push_back(rowBrightness);
+        rowBrightness.clear();
+    }
+    ofSort(brightness, compare);
+    
+    cout << brightness[0][0] << endl;
+
+    for (int i = 0; i < brightness.size(); i++) {
+        for (int j = 0; j < brightness.size(); j++){
+            cout << brightness[i][j] << endl;
         }
     }
-   // ofSort(brightness, compare);
+    ofSleepMillis(300000);
 }
 
-//--------------------------------------------------------------
-
-bool compare(vector<float> a, vector<float> b){
-    return a[0] < b[0];
-}
 
 
 //--------------------------------------------------------------
