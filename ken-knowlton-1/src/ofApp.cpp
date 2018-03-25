@@ -2,52 +2,56 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    ofSetWindowShape(500, 500);
+
+    grabber.setup(640,480);
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
 
+    grabber.update();
 }
 
 //--------------------------------------------------------------
 
-void ofApp::drawRect( float x, float y, float width, float height  ){
-    float sinOfTime2 = sin( ofGetElapsedTimef() + PI);
-    float sinOfTimeMapped2 = ofMap(sinOfTime2, -1, 1, y-height/2, y+height/2);
-    float sinOfTimeMapped3 = ofMap(sinOfTime2, -1, 1, x-width/2, x+width/2 );
 
-    ofDrawLine(x-width/2, y-height/2, sinOfTimeMapped3, y-height/2);
-    ofDrawLine(sinOfTimeMapped3, y+height/2, x+width/2, y+height/2);
-
-    ofDrawLine(x-width/2, sinOfTimeMapped2, x-width/2, y+height/2);
-    ofDrawLine(x+width/2, y-height/2, x+width/2, sinOfTimeMapped2);
+bool compare(vector<ofColor> a, vector<ofColor> b) {
+    return a[0].getSaturation() < b[0].getSaturation();
 }
 
 void ofApp::draw(){
-    ofBackground(255);
-    ofFill();
-    ofSetColor(255, 255, 255); //fill color
-    ofNoFill();
-    ofSetColor(0, 0, 0); //stroke color
+
+    ofBackground(0);
     
-    int step = 100;
-    for (int row = 0; row < 5; row++){
-        for (int col = 0; col < 5; col++) {
-            int rowVal = row*step + step/2;
-            int colVal = col*step + step/2;
-            drawRect(rowVal, colVal, step, step);
-            for (int count = 0; count < 10; count++) {
-                step = 100 - count * 10;
-                drawRect(rowVal, colVal, step, step);
-            }
-            step = 100;
-            rowVal = row*step;
-            colVal = col*step;
+    brightness.clear();
+    pixels.clear();
+    
+    for (int i = 0; i < grabber.getWidth(); i+=10){
+        vector<float> rowBrightness;
+        vector<ofColor> rowPixels;
+        for (int j = 0; j < grabber.getHeight(); j+=10){
+            ofColor pixel = grabber.getPixels().getColor(i,j);
+            rowPixels.push_back(pixel);
+            rowBrightness.push_back(pixel.getBrightness());
+        }
+        brightness.push_back(rowBrightness);
+        pixels.push_back(rowPixels);
+        rowBrightness.clear();
+    }
+    
+    for( int i = 0; i < pixels.size(); i++){
+        cout << pixels[i][i] << endl;
+    }
+    
+   // ofSort(pixels, compare);
+
+    for (int i = 0; i < grabber.getWidth(); i+=10) {
+        for (int j = 0; j < grabber.getHeight(); j+=10){
+            ofSetColor(pixels[i/10][j/10]);
+            ofDrawRectangle(i, j, 10, 10);
         }
     }
 }
-
 
 
 

@@ -2,54 +2,59 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    ofSetWindowShape(500, 500);
+    int width = ofGetWidth();
+    int height = ofGetHeight();
+    grabber.setup(width, height);
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-
+    grabber.update();
 }
+
 
 //--------------------------------------------------------------
-
-void ofApp::drawRect( float x, float y, float width, float height  ){
-    float sinOfTime2 = sin( ofGetElapsedTimef() + PI);
-    float sinOfTimeMapped2 = ofMap(sinOfTime2, -1, 1, y-height/2, y+height/2);
-    float sinOfTimeMapped3 = ofMap(sinOfTime2, -1, 1, x-width/2, x+width/2 );
-
-    ofDrawLine(x-width/2, y-height/2, sinOfTimeMapped3, y-height/2);
-    ofDrawLine(sinOfTimeMapped3, y+height/2, x+width/2, y+height/2);
-
-    ofDrawLine(x-width/2, sinOfTimeMapped2, x-width/2, y+height/2);
-    ofDrawLine(x+width/2, y-height/2, x+width/2, sinOfTimeMapped2);
-}
-
 void ofApp::draw(){
-    ofBackground(255);
-    ofFill();
-    ofSetColor(255, 255, 255); //fill color
-    ofNoFill();
-    ofSetColor(0, 0, 0); //stroke color
+    ofBackground(0);
+    int width = ofGetWidth();
+    int height = ofGetHeight();
+    ofSetRectMode(OF_RECTMODE_CENTER);
     
-    int step = 100;
-    for (int row = 0; row < 5; row++){
-        for (int col = 0; col < 5; col++) {
-            int rowVal = row*step + step/2;
-            int colVal = col*step + step/2;
-            drawRect(rowVal, colVal, step, step);
-            for (int count = 0; count < 10; count++) {
-                step = 100 - count * 10;
-                drawRect(rowVal, colVal, step, step);
+    ofRectangle rect1, rect2, rect3;
+    int yIncrement = ofMap(mouseY, 0, height, 0, 100);
+    int xIncrement = ofMap(mouseX, 0, height, 0, 100);
+
+    rect1.x = width/2-100 + xIncrement;
+    rect1.y = (height/2)-150 + yIncrement;
+    rect1.width = 200;
+    rect1.height = 100;
+    
+    rect2.x = width/2 + xIncrement;
+    rect2.y = height/2 + yIncrement;
+    rect2.width = 250;
+    rect2.height = 250;
+    
+    rect3.x = width/2+100 + xIncrement;
+    rect3.y = (height/2)+150 + yIncrement;
+    rect3.width = 200;
+    rect3.height = 100;
+    
+    ofDrawRectangle(rect1);
+    ofDrawRectangle(rect2);
+    ofDrawRectangle(rect3);
+    
+    for (int i = 0; i < grabber.getWidth(); i+=10){
+        for (int j = 0; j < grabber.getHeight(); j+=10){
+            ofColor pixel = grabber.getPixels().getColor(i,j);
+            if (ofRectangle(rect1).inside(i, j) || ofRectangle(rect2).inside(i, j) || ofRectangle(rect3).inside(i, j) ) {
+                ofSetRectMode(OF_RECTMODE_CORNER);
+                ofSetColor(pixel);
+                ofDrawRectangle(i, j, 10, 10);
             }
-            step = 100;
-            rowVal = row*step;
-            colVal = col*step;
         }
     }
+
 }
-
-
-
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
