@@ -53,12 +53,22 @@ void ofApp::draw(){
     int height = img.getHeight() / img.getWidth() * width;
     fbo.draw(0,0, width, height);
     int size = imgArr.size();
-    // make sure mouse is within the bounds of the image and also that the index is imgArr
-    if (mouseX < width && mouseY < height && mouseX < size && mouseY < size) {
-        // pass the index of the image to the gui to draw
-        gui->idx = imgArr[mouseX][mouseY];
-    }
+    
+    // to account for the grid size (every 1px doesn't correspond to an image)
+    int revisedX = (int)mouseX/gridSize;
+    int revisedY = (int)mouseY/gridSize;
+    cout << size << endl;
+    cout << revisedY << " " << revisedX << endl;
 
+    // make sure mouse is within the bounds of the image and also that the index is imgArr
+    if (mouseX < width && mouseY < height && revisedX < size && revisedY < size) {
+        // pass the index of the image to the gui to draw
+        int idx = imgArr[mouseX][mouseY];
+        if (idx <= 50) {
+            gui->idx = idx;
+        }
+    }
+//
 }
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
