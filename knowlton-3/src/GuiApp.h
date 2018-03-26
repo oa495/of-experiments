@@ -10,5 +10,8 @@ public:
     void draw();
     
     ofxPanel gui;
+    int idx;
+    ofImage images [50];
+
 };
 

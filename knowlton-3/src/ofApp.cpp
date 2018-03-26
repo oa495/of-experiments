@@ -10,6 +10,7 @@ void ofApp::setup(){
     fbo.allocate(img.getWidth()*4, img.getHeight()*4, GL_RGBA, 4);
     gridSize = 2;
     
+    // load all images
     for (int i = 0; i < 50; i++) {
         images[i].load(to_string(i+1) + ".jpg");
     }
@@ -35,6 +36,7 @@ void ofApp::setup(){
             images[idx].draw(i*4, j*4, gridSize*4, gridSize*4);
             rowImg.push_back(idx);
         }
+        // store the image at each index location, so what image is drawn at 1,1 etc
         imgArr.push_back(rowImg);
     }
     fbo.end();
@@ -48,9 +50,12 @@ void ofApp::update(){
 
 void ofApp::draw(){
     fbo.draw(0,0);
-    if (mouseX < img.getWidth() && mouseY < img.getHeight()) {
-        //cout << imgArr[mouseX][mouseY] << " "  << endl;
-        
+    
+    int size = imgArr.size();
+    // make sure mouse is within the bounds of the image and also that the index is imgArr
+    if (mouseX < img.getWidth() && mouseY < img.getHeight() && mouseX < size && mouseY < size) {
+        // pass the index of the image to the gui to draw
+        gui->idx = imgArr[mouseX][mouseY];
     }
 
 }
