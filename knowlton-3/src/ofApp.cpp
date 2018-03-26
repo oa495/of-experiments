@@ -49,11 +49,12 @@ void ofApp::update(){
 
 
 void ofApp::draw(){
-    fbo.draw(0,0);
-    
+    int width = ofGetWidth();
+    int height = img.getHeight() / img.getWidth() * width;
+    fbo.draw(0,0, width, height);
     int size = imgArr.size();
     // make sure mouse is within the bounds of the image and also that the index is imgArr
-    if (mouseX < img.getWidth() && mouseY < img.getHeight() && mouseX < size && mouseY < size) {
+    if (mouseX < width && mouseY < height && mouseX < size && mouseY < size) {
         // pass the index of the image to the gui to draw
         gui->idx = imgArr[mouseX][mouseY];
     }
