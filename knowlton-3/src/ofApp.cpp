@@ -32,7 +32,7 @@ void ofApp::setup(){
             brightness = brightness / (gridSize * gridSize);
             
             int idx = (int)ofMap(brightness, 0, 255, 0, 15);
-            images[idx].draw(i*4, j*4, gridSize*3, gridSize*3);
+            images[idx].draw(i*4, j*4, gridSize*4, gridSize*4);
             rowImg.push_back(idx);
         }
         imgArr.push_back(rowImg);
@@ -49,7 +49,7 @@ void ofApp::update(){
 void ofApp::draw(){
     fbo.draw(0,0);
     if (mouseX < img.getWidth() && mouseY < img.getHeight()) {
-        cout << imgArr[mouseX][mouseY] << " "  << endl;
+        //cout << imgArr[mouseX][mouseY] << " "  << endl;
         
     }
 
