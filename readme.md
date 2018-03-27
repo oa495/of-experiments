@@ -17,5 +17,3 @@ This is a collection of stuff I made using [OpenFrameworks](http://openframework
 ![3D text inspired by Muriel Cooper's work](imgs/muriel-3D.gif)
 
 ![3D text inspired by Muriel Cooper's work](imgs/muriel1.png)
-
-![3D text inspired by Muriel Cooper's work](imgs/muriel2.png)
