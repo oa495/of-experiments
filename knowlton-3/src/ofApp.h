@@ -26,7 +26,7 @@ class ofApp : public ofBaseApp{
         shared_ptr<GuiApp> gui;
     
     ofImage img;
-    ofImage images [50];
+    vector<ofImage> images;
     ofFbo fbo;
     
     float gridSize;

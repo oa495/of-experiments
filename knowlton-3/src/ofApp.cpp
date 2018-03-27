@@ -1,5 +1,26 @@
 #include "ofApp.h"
 
+bool sort_brightness(ofImage a, ofImage b) {
+    float aBrightness = 0;
+    float bBrightness = 0;
+
+    for (int m = 0; m < a.getWidth(); m++) {
+        for (int n = 0; n < a.getHeight(); n++) {
+            aBrightness += a.getColor(m, n).getBrightness();
+        }
+    }
+    
+    aBrightness = aBrightness / (a.getWidth()*a.getHeight());
+    
+    for (int m = 0; m < b.getWidth(); m++) {
+        for (int n = 0; n < b.getHeight(); n++) {
+            bBrightness += b.getColor(m, n).getBrightness();
+        }
+    }
+    bBrightness = bBrightness/ (b.getWidth()*b.getHeight());
+    
+    return aBrightness < bBrightness;
+}
 
 void ofApp::setup(){
     ofBackground(255);
@@ -12,8 +33,12 @@ void ofApp::setup(){
     
     // load all images
     for (int i = 0; i < 50; i++) {
-        images[i].load(to_string(i+1) + ".jpg");
+        ofImage temp;
+        temp.load(to_string(i+1) + ".jpg");
+        images.push_back(temp);
     }
+    
+    ofSort(images, sort_brightness);
     
     fbo.begin();
     ofClear(0, 0, 0, 255);
@@ -32,7 +57,7 @@ void ofApp::setup(){
             
             brightness = brightness / (gridSize * gridSize);
             
-            int idx = (int)ofMap(brightness, 0, 255, 0, 15);
+            int idx = (int)ofMap(brightness, 0, 255, 0, 50);
             images[idx].draw(i*4, j*4, gridSize*4, gridSize*4);
             rowImg.push_back(idx);
         }
@@ -68,6 +93,7 @@ void ofApp::draw(){
             gui->idx = idx;
         }
     }
+    
 }
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
