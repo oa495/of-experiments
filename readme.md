@@ -8,12 +8,6 @@ This is a collection of stuff I made using [OpenFrameworks](http://openframework
 
 ![Vera Molnar animation](imgs/vera2.gif)
 
-![Vera Molnar animation](imgs/vera4.gif)
-
-![Vera Molnar work, left is my recreation, right is original](imgs/vera3.png)
-
 ![3D text inspired by Muriel Cooper's work](imgs/muriel-3D-2.gif)
 
 ![3D text inspired by Muriel Cooper's work](imgs/muriel-3D.gif)
-
-![3D text inspired by Muriel Cooper's work](imgs/muriel1.png)
