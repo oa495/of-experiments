@@ -4,9 +4,10 @@ This is a collection of stuff I made using [OpenFrameworks](http://openframework
 
 ![Vera Molnar work, left is my recreation, right is original](imgs/vera-comparison.png)
 
-<img align="center" width="400" alt="Vera Molnar animation" src="imgs/vera2.gif">
-<img align="center" width="400" alt="Vera Molnar animation" src="imgs/vera1.gif">
-
+<div align="center">
+  <img align="left" width="400" alt="Vera Molnar animation" src="imgs/vera2.gif">
+  <img align="right" width="400" alt="Vera Molnar animation" src="imgs/vera1.gif">
+</div>
 ![3D text inspired by Muriel Cooper's work](imgs/muriel-3D-2.gif)
 
 ![3D text inspired by Muriel Cooper's work](imgs/muriel-3D.gif)
