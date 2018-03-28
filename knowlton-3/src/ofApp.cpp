@@ -22,14 +22,36 @@ bool sort_brightness(ofImage a, ofImage b) {
     return aBrightness < bBrightness;
 }
 
+bool sort_lightness(ofImage a, ofImage b) {
+    float aLightness = 0;
+    float bLightness = 0;
+    
+    for (int m = 0; m < a.getWidth(); m++) {
+        for (int n = 0; n < a.getHeight(); n++) {
+            aLightness += a.getColor(m, n).getLightness();
+        }
+    }
+    
+    aLightness = aLightness / (a.getWidth()*a.getHeight());
+    
+    for (int m = 0; m < b.getWidth(); m++) {
+        for (int n = 0; n < b.getHeight(); n++) {
+            bLightness += b.getColor(m, n).getLightness();
+        }
+    }
+    bLightness = bLightness/ (b.getWidth()*b.getHeight());
+    
+    return aLightness < bLightness;
+}
+
 void ofApp::setup(){
     ofBackground(255);
 
-    img.load("baby.png");
+    img.load("baby-s.png");
     
     cout << img.getWidth() << " " << img.getHeight() << endl;
-    fbo.allocate(img.getWidth()*4, img.getHeight()*4, GL_RGBA, 4);
-    gridSize = 5;
+    fbo.allocate(img.getWidth()*6, img.getHeight()*6, GL_RGBA, 4);
+    gridSize = 2;
     
     // load all images
     for (int i = 0; i < 50; i++) {
@@ -57,8 +79,8 @@ void ofApp::setup(){
             
             brightness = brightness / (gridSize * gridSize);
             
-            int idx = (int)ofMap(brightness, 0, 255, 0, 50);
-            images[idx].draw(i*4, j*4, gridSize*4, gridSize*4);
+            int idx = (int)ofMap(brightness, 0, 255, 0, 49);
+            images[idx].draw(i*6, j*6, gridSize*6, gridSize*6);
             rowImg.push_back(idx);
         }
         // store the image at each index location, so what image is drawn at 1,1 etc
